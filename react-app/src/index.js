@@ -1,6 +1,12 @@
-import {
-    Teacher
-} from './teacher'
+import
+Teacher, {
+    promote
+}
+from './teacher'
+
+// Default -> import ... from '';
+// Named -> import {...} from '';
+
 // Arrow Functions
 
 // const square = number => number * number;
