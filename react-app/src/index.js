@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom';
 { /* ReactDOM.render(element, document.getElementById('root')); */ }
 
 
+// Arrow Functions
+
 const square = number => number * number;
 console.log(square(5));
 
@@ -22,9 +24,21 @@ const jobs = [{
     }
 ];
 
-// const activeJobs = jobs.filter(function (job) {
-//     return job.isActive;
-// });
-
 const activeJobs = jobs.filter(job => job.isActive);
 console.log(activeJobs);
+// 
+
+// Arrow functions and this
+const person = {
+    talk() {
+        setTimeout(function () {
+            console.log("this", this)
+        }, 1000);
+    }
+};
+
+person.talk();
+
+//
+
+// Array.map Method
