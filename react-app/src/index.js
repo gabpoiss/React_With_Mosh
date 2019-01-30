@@ -48,4 +48,21 @@ const colors = ["blue", "orange", "red"]
 const items = colors.map(color => `<li>${color}</li>`);
 console.log(items);
 
+//Object Destructuring
+const address = {
+    street: '',
+    city: '',
+    country: ''
+};
+
+const street = address.street;
+const city = address.city;
+// Destructuring solve this repetitive code
+
+// ----->
+const {
+    street,
+    city,
+    country
+} = address
 //
