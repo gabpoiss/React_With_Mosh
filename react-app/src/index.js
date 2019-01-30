@@ -60,9 +60,22 @@ const city = address.city;
 // Destructuring solve this repetitive code
 
 // ----->
-const {
-    street,
-    city,
-    country
-} = address
+// const {
+//     street,
+//     city,
+//     country
+// } = address;
+//
+
+// Spread Operator
+const first = [1, 2, 3];
+const second = [4, 5, 6];
+
+// const combined = first.concad(second);
+// This concad method is the same as the spread operators below.
+// But with the spread operators you can add properties in betweem or besides them without being too complicated.
+
+const combined = [...first, 'a', ...second, 'b'];
+
+console.log(combined);
 //
