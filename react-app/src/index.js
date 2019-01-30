@@ -42,3 +42,10 @@ person.talk();
 //
 
 // Array.map Method
+
+const colors = ["blue", "orange", "red"]
+
+const items = colors.map(color => `<li>${color}</li>`);
+console.log(items);
+
+//
