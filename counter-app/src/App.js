@@ -13,16 +13,15 @@ class App extends Component {
     ]
   };
 
-  constructor() {
-    super();
-    console.log("App - Constructor");
-    // this.state = this.props.something;
-  }
+  // constructor() {
+  //   super();
+  //   // console.log("App - Constructor");
+  //   // this.state = this.props.something;
+  // }
 
   componentDidMount() {
     // AJAX call
-
-    console.log("App - mounted");
+    // console.log("App - mounted");
   }
 
   handleIncrement = counter => {
@@ -42,13 +41,22 @@ class App extends Component {
   };
 
   handleDelete = counterID => {
-    console.log("Event handle Delete Called", counterID);
+    // console.log("Event handle Delete Called", counterID);
     const counters = this.state.counters.filter(c => c.id !== counterID);
     this.setState({ counters: counters });
   };
 
+  handleDecrement = counterDecrement => {
+    console.log(counterDecrement);
+    const counters = this.state.counters.map(c => {
+      if (c.id === counterDecrement.id) c.value = c.value - 1;
+      return c;
+    });
+    this.setState({ counters: counters });
+  };
+
   render() {
-    console.log("App - Rendered");
+    // console.log("App - Rendered");
     return (
       <React.Fragment>
         <main className="container">
@@ -60,6 +68,7 @@ class App extends Component {
             onReset={this.handleReset}
             onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
+            onDecrement={this.handleDecrement}
           />
         </main>
       </React.Fragment>

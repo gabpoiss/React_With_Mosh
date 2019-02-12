@@ -1,19 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 
 // Stateless Functionnal Components
 
 // Destructuring Arguments
 
 const NavBar = ({ totalCounters }) => {
-  console.log("NavBar - Rendered");
+  //   console.log("NavBar - Rendered");
   return (
     <nav className="navbar navbar-light bg-light">
-      <a className="navbar-brand" href="#">
+      <div className="navbar-brand">
         Navbar
         <span className="badge badge-pill badge-secondary">
           {totalCounters}
         </span>
-      </a>
+      </div>
     </nav>
   );
 };
