@@ -18,37 +18,38 @@ class Counter extends Component {
     // console.log("Counter - Unmount");
   }
 
-  handleButtonDisableBadge() {
-    let btnDisable = "btn btn-sm btn-";
-    btnDisable += this.props.counter.value === 0 ? "secondary" : "dark";
-    return btnDisable;
-  }
+  // I did this but Mosh used html disabled attributes
+
+  // handleButtonDisableBadge() {
+  //   let btnDisable = "btn btn-sm btn-";
+  //   btnDisable += this.props.counter.value === 0 ? "secondary" : "dark";
+  //   return btnDisable;
+  // }
+
   render() {
     // console.log("Counter - Rendered");
     return (
       <div className="row">
-        <div className="col">
+        <div className="col-1">
           <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         </div>
         <div className="col">
           <button
             onClick={() => this.props.onIncrement(this.props.counter)}
-            className="btn btn-dark btn-sm"
+            className="btn btn-secondary btn-sm"
           >
             +
           </button>
-        </div>
 
-        <div className="col">
           <button
             onClick={() => this.props.onDecrement(this.props.counter)}
-            className={this.handleButtonDisableBadge()}
+            // className={this.handleButtonDisableBadge()}
+            className="btn btn-secondary btn-sm m-2"
+            disabled={this.props.counter.value === 0 ? "disabled" : ""}
           >
             -
           </button>
-        </div>
 
-        <div className="col">
           <button
             onClick={() => this.props.onDelete(this.props.counter.id)}
             className="btn btn-danger btn-sm m-2"
