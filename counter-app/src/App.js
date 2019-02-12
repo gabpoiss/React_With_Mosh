@@ -47,11 +47,13 @@ class App extends Component {
   };
 
   handleDecrement = counterDecrement => {
-    console.log(counterDecrement);
+    // console.log(counterDecrement);
+
     const counters = this.state.counters.map(c => {
-      if (c.id === counterDecrement.id) c.value = c.value - 1;
+      if (c.id === counterDecrement.id && c.value >= 1) c.value = c.value - 1;
       return c;
     });
+
     this.setState({ counters: counters });
   };
 

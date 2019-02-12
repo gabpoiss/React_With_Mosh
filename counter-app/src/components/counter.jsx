@@ -18,6 +18,11 @@ class Counter extends Component {
     // console.log("Counter - Unmount");
   }
 
+  handleButtonDisableBadge() {
+    let btnDisable = "btn btn-sm btn-";
+    btnDisable += this.props.counter.value === 0 ? "secondary" : "dark";
+    return btnDisable;
+  }
   render() {
     // console.log("Counter - Rendered");
     return (
@@ -28,7 +33,7 @@ class Counter extends Component {
         <div className="col">
           <button
             onClick={() => this.props.onIncrement(this.props.counter)}
-            className="btn btn-secondary btn-sm"
+            className="btn btn-dark btn-sm"
           >
             +
           </button>
@@ -37,7 +42,7 @@ class Counter extends Component {
         <div className="col">
           <button
             onClick={() => this.props.onDecrement(this.props.counter)}
-            className="btn btn-secondary btn-sm"
+            className={this.handleButtonDisableBadge()}
           >
             -
           </button>
