@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Movies from "./components/movies";
-import Tmovies from "./components/Testing_my_learning";
+// import Tmovies from "./components/Testing_my_learning";
 
 class App extends Component {
   state = {};
@@ -10,7 +10,7 @@ class App extends Component {
       <div>
         <main className="container" id="App" />
         <Movies />
-        <Tmovies />
+        {/* <Tmovies /> */}
       </div>
     );
   }
