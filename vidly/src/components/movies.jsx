@@ -2,11 +2,14 @@ import React, { Component } from "react";
 // import { genres } from "../Starter Code/services/fakeGenreService";
 // import { getGenres } from "../Starter Code/services/fakeGenreService";
 import { getMovies, getMovie } from "../Starter Code/services/fakeMovieService";
+import Like from "./common/like";
+import Pagination from "./common/pagination";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
-    isToggleOn: true
+    isToggleOn: true,
+    pageSize: 4
   };
   handleDelete = movie => {
     console.log(movie);
@@ -14,23 +17,34 @@ class Movies extends Component {
     this.setState({ movies: movies });
   };
 
-  handleLikeClick = prevState => {
-    // Not sure what im doing here
-    // const movieID = this.state.movies.filter(m => m.id === movie.id);
-    // console.log(movieID);
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  };
+  // handleLikeClick = prevState => {
+  //   // Not sure what im doing here
+  //   // const movieID = this.state.movies.filter(m => m.id === movie.id);
+  //   // console.log(movieID);
+  //   this.setState(prevState => ({
+  //     isToggleOn: !prevState.isToggleOn
+  //   }));
+  // };
 
-  heartBadge() {
-    // const movies = this.state.movies.filter(m => m._id === movie._id);
-    // this.setState({ movies: movies });
-    const badge = this.state.isToggleOn ? "fa fa-heart-o" : "fa fa-heart";
-    return badge;
-  }
+  // heartBadge() {
+  //   // const movies = this.state.movies.filter(m => m._id === movie._id);
+  //   // this.setState({ movies: movies });
+  //   const badge = this.state.isToggleOn ? "fa fa-heart-o" : "fa fa-heart";
+  //   return badge;
+  // }
+  handleLike = movie => {
+    // console.log("Like Cliked", movie);
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    movies[index] = { ...movies[index] };
+    movies[index].liked = !movies[index].liked;
+    this.setState({ movies });
+    console.log(movies);
+  };
+  handlePageChange = page => {};
 
   render() {
+    // This is object destructuring method
     const { length: count } = this.state.movies;
 
     if (count === 0) return <p>There are no more movies!</p>;
@@ -46,6 +60,7 @@ class Movies extends Component {
                 <th>Genre</th>
                 <th>Stock</th>
                 <th>Rate</th>
+                <th>Likes</th>
                 <th />
               </tr>
             </thead>
@@ -57,11 +72,15 @@ class Movies extends Component {
                   <td>{movie.numberInStock}</td>
                   <td>{movie.dailyRentalRate}</td>
                   <td>
-                    <i
+                    <Like
+                      liked={movie.liked}
+                      onClick={() => this.handleLike(movie)}
+                    />
+                    {/* <i
                       onClick={this.handleLikeClick()}
                       className={this.heartBadge()}
                       aria-hidden="true"
-                    />
+                    /> */}
                   </td>
                   <td>
                     <button
@@ -75,6 +94,11 @@ class Movies extends Component {
               ))}
             </tbody>
           </table>
+          <Pagination
+            itemsCount={count}
+            pageSize={this.state.pageSize}
+            onPageChange={this.handlePageChange()}
+          />
         </div>
       </React.Fragment>
     );
