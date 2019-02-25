@@ -4,12 +4,14 @@ import React, { Component } from "react";
 import { getMovies, getMovie } from "../Starter Code/services/fakeMovieService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
     isToggleOn: true,
-    pageSize: 4
+    pageSize: 4,
+    currentPage: 1
   };
   handleDelete = movie => {
     console.log(movie);
@@ -41,11 +43,15 @@ class Movies extends Component {
     this.setState({ movies });
     console.log(movies);
   };
-  handlePageChange = page => {};
+  handlePageChange = page => {
+    this.setState({ currentPage: page });
+  };
 
   render() {
     // This is object destructuring method
     const { length: count } = this.state.movies;
+    const { pageSize, currentPage, movies: allMovies } = this.state;
+    const movies = paginate(allMovies, currentPage, pageSize);
 
     if (count === 0) return <p>There are no more movies!</p>;
     return (
@@ -65,7 +71,7 @@ class Movies extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.movies.map(movie => (
+              {movies.map(movie => (
                 <tr key={movie._id}>
                   <td>{movie.title}</td>
                   <td>{movie.genre.name}</td>
@@ -95,9 +101,10 @@ class Movies extends Component {
             </tbody>
           </table>
           <Pagination
-            itemsCount={count}
-            pageSize={this.state.pageSize}
-            onPageChange={this.handlePageChange()}
+            itemsCount="abc"
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={this.handlePageChange}
           />
         </div>
       </React.Fragment>
