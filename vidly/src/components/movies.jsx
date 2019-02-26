@@ -5,6 +5,7 @@ import { getMovies, getMovie } from "../Starter Code/services/fakeMovieService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
+import ListGroup from "./common/list-group";
 
 class Movies extends Component {
   state = {
@@ -62,6 +63,9 @@ class Movies extends Component {
           <table className="table">
             <thead>
               <tr>
+                <th>
+                  <ListGroup />
+                </th>
                 <th>Title</th>
                 <th>Genre</th>
                 <th>Stock</th>
@@ -70,6 +74,7 @@ class Movies extends Component {
                 <th />
               </tr>
             </thead>
+
             <tbody>
               {movies.map(movie => (
                 <tr key={movie._id}>
