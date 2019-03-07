@@ -2,23 +2,30 @@ import React, { Component } from "react";
 // import { genres } from "../Starter Code/services/fakeGenreService";
 // import { getGenres } from "../Starter Code/services/fakeGenreService";
 import { getMovies, getMovie } from "../Starter Code/services/fakeMovieService";
+import { getGenres } from "../Starter Code/services/fakeGenreService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
-import ListGroup from "./common/list-group";
+import ListGroup from "./common/listGroup";
 
 class Movies extends Component {
   state = {
-    movies: getMovies(),
+    movies: [],
+    genres: [],
     isToggleOn: true,
     pageSize: 4,
     currentPage: 1
   };
   handleDelete = movie => {
     console.log(movie);
-    const movies = this.state.movies.filter(m => m._id != movie._id);
+    const movies = this.state.movies.filter(m => m._id !== movie._id);
     this.setState({ movies: movies });
   };
+
+  componentDidMount() {
+    const genres = [{ name: "All Genres" }, ...getGenres()];
+    this.setState({ movies: getMovies(), genres: genres });
+  }
 
   // handleLikeClick = prevState => {
   //   // Not sure what im doing here
@@ -48,24 +55,44 @@ class Movies extends Component {
     this.setState({ currentPage: page });
   };
 
+  handleGenreSelect = genre => {
+    this.setState({ selectedGenre: genre, currentPage: 1 });
+    console.log(genre);
+  };
+
   render() {
     // This is object destructuring method
     const { length: count } = this.state.movies;
-    const { pageSize, currentPage, movies: allMovies } = this.state;
-    const movies = paginate(allMovies, currentPage, pageSize);
+    const {
+      pageSize,
+      currentPage,
+      selectedGenre,
+      movies: allMovies
+    } = this.state;
+
+    const filtered =
+      selectedGenre && selectedGenre._id
+        ? allMovies.filter(m => m.genre._id === selectedGenre._id)
+        : allMovies;
+    const movies = paginate(filtered, currentPage, pageSize);
 
     if (count === 0) return <p>There are no more movies!</p>;
     return (
-      <React.Fragment>
-        <p>Showing {count} movies in the database</p>
-        <div className="container">
+      <div className="row">
+        <div className="col-3">
+          <ListGroup
+            items={this.state.genres}
+            selectedItem={this.state.selectedGenre}
+            onItemSelect={this.handleGenreSelect}
+          />
+        </div>
+        <div className="col">
+          <p>Showing {filtered.length} movies in the database</p>
+
           <h2>Movies Components</h2>
           <table className="table">
             <thead>
               <tr>
-                <th>
-                  <ListGroup />
-                </th>
                 <th>Title</th>
                 <th>Genre</th>
                 <th>Stock</th>
@@ -88,10 +115,10 @@ class Movies extends Component {
                       onClick={() => this.handleLike(movie)}
                     />
                     {/* <i
-                      onClick={this.handleLikeClick()}
-                      className={this.heartBadge()}
-                      aria-hidden="true"
-                    /> */}
+              onClick={this.handleLikeClick()}
+              className={this.heartBadge()}
+              aria-hidden="true"
+            /> */}
                   </td>
                   <td>
                     <button
@@ -106,13 +133,13 @@ class Movies extends Component {
             </tbody>
           </table>
           <Pagination
-            itemsCount={count}
+            itemsCount={filtered.length}
             currentPage={currentPage}
             pageSize={pageSize}
             onPageChange={this.handlePageChange}
           />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

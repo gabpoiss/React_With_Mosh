@@ -14,9 +14,6 @@ const Pagination = props => {
     <div className="container">
       <nav aria-label="Page navigation example">
         <ul className="pagination">
-          <li className="page-item">
-            <a className="page-link">Previous</a>
-          </li>
           {pages.map(page => (
             <li
               key={page}
@@ -29,10 +26,6 @@ const Pagination = props => {
               </a>
             </li>
           ))}
-
-          <li className="page-item">
-            <a className="page-link">Next</a>
-          </li>
         </ul>
       </nav>
     </div>

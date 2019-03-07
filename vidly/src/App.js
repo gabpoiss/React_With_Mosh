@@ -8,8 +8,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <main className="container" id="App" />
-        <Movies />
+        <main className="container" id="App" style={{ paddingTop: 40 }}>
+          <Movies />
+        </main>
         {/* <Tmovies /> */}
       </div>
     );
